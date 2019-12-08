@@ -30,32 +30,15 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
-        @click.stop="miniVariant = !miniVariant"
-        icon
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn
-        @click.stop="clipped = !clipped"
-        icon
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        @click.stop="fixed = !fixed"
-        icon
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn
-        @click.stop="rightDrawer = !rightDrawer"
-        icon
+      <v-avatar v-if="authenticated">
+        <img :src="user.photoURL" />
+      </v-avatar>
+      &nbsp;
+      <v-btn v-if="authenticated" class="signout" text color="primary" @click="signOut"
+        >logout</v-btn
       >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
     </v-app-bar>
     <v-content>
       <v-container>
@@ -89,7 +72,18 @@
 </template>
 
 <script>
+import { vuexfireMutations, firestoreAction } from 'vuexfire'
+import { mapGetters } from 'vuex'
+import firebase from '@/plugins/firebase'
 export default {
+  computed: {
+    ...mapGetters(['authenticated', 'user', 'loading'])
+  },
+  methods: {
+    signOut() {
+      firebase.auth().signOut()
+    }
+  },
   data () {
     return {
       clipped: false,
@@ -98,19 +92,34 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Home',
           to: '/'
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Inspire',
+          title: 'アンケート結果',
+          to: '/analytics'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'アンケート追加',
+          to: '/admin'
+        },
+       {
+          icon: 'mdi-chart-bubble',
+          title: 'アンケート管理',
+          to: '/mquestions'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'myアカウント',
           to: '/inspire'
-        }
+        },
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'リアルタイムアンケート'
     }
   }
 }

@@ -2,15 +2,33 @@
   <v-layout>
     <v-flex class="text-center">
       <div v-if="activeQuestions">
-        <ul
+        <div
          v-for="question in activeQuestions"
          :key="question.id"
           class='text-center'
         >
-          <li class='a-select font-weight-black'>
+          <v-alert
+            border="top"
+            colored-border
+            type="info"
+            elevation="2"
+            v-if="isAnswered"
+          >
+            回答受付済みです
+          </v-alert>
+          <h2 class='display-1 font-weight-black'>
             <nuxt-link :to="{ name: 'questions-id', params: { id: question.id } }">{{ question.text }}</nuxt-link>
-          </li>
-        </ul>
+          </h2>
+          <v-btn
+             text
+             class="ra-select"
+             v-for="selection in question.selectionRefs"
+             :key="selection.id"
+             @click="answer($event, $store.state.user.uid, selection, question.id)"
+          >{{ selection.text }}
+          </v-btn>
+          </p>
+        </div>
       </div>
       <div v-else>
         アンケート開始までお待ち下さい
@@ -23,19 +41,19 @@
 </template>
 
 <style lang="scss" scoped>
-.a-question {
+.ra-question {
   margin-top: 1rem;
   margin-bottom: 1rem;
   width: 100%;
   text-align: center;
   font-size: 1rem;
 }
-.a-select {
+.ra-select {
   display: block;
   width: 100%;
   color: black;
   margin-top: 1rem;
-  font-size: 24px;
+  font-size: 2rem;
   & + & {
     margin: 2rem 0 0;
   }
@@ -43,6 +61,7 @@
 </style>
 <script>
 import Loginusers from '~/components/Loginusers.vue'
+import { vuexfireMutations, firestoreAction } from 'vuexfire'
 import { mapGetters, mapActions, mapState } from 'vuex'
 import firebase from '@/plugins/firebase'
 const db = firebase.firestore()
@@ -62,8 +81,8 @@ export default {
   created(){
     this.setUser(),
     this.getAnswered(),
-    this.bindQuestions(),
-    this.bindActiveQuestions()
+    this.bindQuestion(),
+    this.bindActiveQuestion()
   },
   methods: {
     async getAnswered() {
@@ -79,7 +98,7 @@ export default {
         selectionId: selection.id
       })
     },
-    ...mapActions(['setUser','alreadyAnswered','setAlreadyAnswered','bindQuestions','bindActiveQuestions','setAnswer'])
+    ...mapActions(['setUser','bindQuestion','alreadyAnswered','setAlreadyAnswered','bindActiveQuestion','setAnswer'])
   }
 }
 </script>

@@ -1,19 +1,12 @@
 <template>
   <v-layout>
-    <v-flex class="text-center">
-      <img
-        src="/v.png"
-        alt="Vuetify.js"
-        class="mb-5"
-      >
-      <blockquote class="blockquote">
-        &#8220;First, solve the problem. Then, write the code.&#8221;
-        <footer>
-          <small>
-            <em>&mdash;John Johnson</em>
-          </small>
-        </footer>
-      </blockquote>
+    <v-flex class="text-left">
+      <ul>
+        <li>email: {{ $store.state.user.email }} </li>
+        <li>name :{{ $store.state.user.displayName }} </li>
+        <li>uid  :{{ $store.state.user.uid }} </li>
+        <li>Admin: {{ $store.state.user.isAdmin }} </li>
+      </ul>
     </v-flex>
   </v-layout>
 </template>

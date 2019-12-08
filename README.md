@@ -1,6 +1,6 @@
 # nuxt-firebase-samples
 
-> NuxtPractices
+> Nuxtとfirebaseを使った動くものを作る
 
 ## Build Setup
 
