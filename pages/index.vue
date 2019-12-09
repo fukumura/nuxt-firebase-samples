@@ -59,12 +59,10 @@ export default {
     ...mapGetters(['samples', 'activeQuestions','user'])
   },
   created(){
-    this.setUser(),
-    this.bindQuestions(),
     this.bindActiveQuestions()
   },
   methods: {
-    ...mapActions(['setUser','bindQuestions','bindActiveQuestions','setAnswer'])
+    ...mapActions(['bindActiveQuestions'])
   }
 }
 </script>
