@@ -50,36 +50,21 @@ const db = firebase.firestore()
 export default {
   data: function () {
     return {
-      isAnswered: this.getAnswered()
     }
   },
   components: {
     Loginusers
   },
   computed: {
-    ...mapGetters(['samples', 'questions','activeQuestions','user'])
+    ...mapGetters(['samples', 'activeQuestions','user'])
   },
   created(){
     this.setUser(),
-    this.getAnswered(),
     this.bindQuestions(),
     this.bindActiveQuestions()
   },
   methods: {
-    async getAnswered() {
-      // TODO: うまくバインドできない 
-      // let status = await this.alreadyAnswered({uid, questionId})
-      // return status
-    },
-    answer (event, uid, selection, questionId) {
-      this.isAnswered = true;
-      this.setAnswer({
-        uid: uid,
-        questionId: questionId,
-        selectionId: selection.id
-      })
-    },
-    ...mapActions(['setUser','alreadyAnswered','setAlreadyAnswered','bindQuestions','bindActiveQuestions','setAnswer'])
+    ...mapActions(['setUser','bindQuestions','bindActiveQuestions','setAnswer'])
   }
 }
 </script>

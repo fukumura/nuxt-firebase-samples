@@ -10,7 +10,6 @@ export const state = () => {
     authenticated: null,
     isAdmin: false,
     tasks: [],
-    samples: [],
     questions: [],
     activeQuestions: [],
     selections: [],
@@ -27,13 +26,6 @@ export const mutations = {
 }
 
 export const actions = {
-  bindSamples: firestoreAction(({ bindFirestoreRef }, payload) => {
-    return bindFirestoreRef(
-      'samples',
-      db
-        .collection('samples')
-    )
-  }),
   bindQuestions: firestoreAction(({ bindFirestoreRef }, payload) => {
     if (payload && payload.questionId) {
       return bindFirestoreRef(
@@ -149,7 +141,10 @@ export const actions = {
     })
   },
   async setAnswer(context, payload) {
-    const answer = await db.collection('answers').where('uid','==',payload.uid).where('questionId','==',payload.questionId).get()
+    const answer = await db.collection('answers')
+                           .where('uid','==',payload.uid)
+                           .where('questionId','==',payload.questionId)
+                           .get()
     if (answer && answer.size > 0) {
       console.log('already answered')
       return
@@ -179,9 +174,6 @@ export const actions = {
 }
 
 export const getters = {
-  samples(state) {
-    return state.samples
-  },
   chartLabels(state) {
     return state.chartLabels
   },

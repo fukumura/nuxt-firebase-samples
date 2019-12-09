@@ -1,7 +1,6 @@
 <template>
   <v-layout>
     <v-flex class="text-center">
-      <Loginusers />
       <div v-if="questions">
         <ul>
           <li

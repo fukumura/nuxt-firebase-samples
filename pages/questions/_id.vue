@@ -14,7 +14,7 @@
              class="display-1 a-select"
              v-for="selection in selections"
              :key="selection.id"
-             @click="answer($event, $store.state.user.uid, selection.id)"
+             @click="answer($event, selection.id)"
           >{{ selection.text }}
           </v-btn>
         </div>
@@ -74,7 +74,7 @@ export default {
   methods: {
     async getAnswered() {
       const userId = this.$store.state.user.uid
-      let status = await this.alreadyAnswered({
+      const status = await this.alreadyAnswered({
         uid: userId,
         questionId: this.$route.params.id
       })
@@ -99,8 +99,9 @@ export default {
         const s = await db.collection('selections')
                           .doc(selection.id)
                           .get()
+        
         selections.push({
-          id: s.data().id,
+          id: selection.id,
           text: s.data().text
         })
       }
