@@ -8,8 +8,7 @@
          class='text-center'
       >
         <hr class="separator">
-        <v-p class='display-1 font-weight-black'>{{ question.text }}</v-p>
-        <hr class="separator">
+        <p class='display-1 font-weight-black py-5'>{{ question.text }}</p>
         <v-table class="table">
           <thead>
             <tr>

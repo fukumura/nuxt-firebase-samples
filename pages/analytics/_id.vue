@@ -1,24 +1,22 @@
 <template>
-  <v-layout>
-    <v-flex class="text-center">
-      <v-p class='display-1 font-weight-black'>{{ question.text }}</v-p>
-      <hr class="separator">
-      <v-table class="table">
-        <thead>
-          <tr>
-            <th>回答</th>
-            <th>回答数</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="selectionRef in selections" :key="selectionRef.index">
-            <td class="display-1 font-weight-black">{{ selectionRef.text }}</td>
-            <td class="display-3 font-weight-black">{{ (selectionRef.answerRefs) ? selectionRef.answerRefs.length : 0 }}</td>
-          </tr>
-        </tbody>
-      </v-table>
-    </v-flex>
-  </v-layout>
+  <v-container fluid>
+    <p class='justify-center display-1 font-weight-black'>{{ question.text }}</v-p>
+    <hr class="separator">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>回答</th>
+          <th>回答数</th>
+        </tr>
+      </thead>
+      <tbody class='justify-center'>
+        <tr v-for="selectionRef in selections" :key="selectionRef.index">
+          <td class="display-1 font-weight-black">{{ selectionRef.text }}</td>
+          <td class="display-3 font-weight-black">{{ (selectionRef.answerRefs) ? selectionRef.answerRefs.length : 0 }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </v-container>
 </template>
 
 <script>
