@@ -1,8 +1,8 @@
 <template>
-  <v-container fluid>
-    <p class='justify-center display-1 font-weight-black'>{{ question.text }}</v-p>
+  <v-container fluid class='text-center'>
+    <p class='justify-center display-1 font-weight-black'>{{ question.text }}</p>
     <hr class="separator">
-    <table class="table">
+    <v-table class="center">
       <thead>
         <tr>
           <th>回答</th>
@@ -15,7 +15,7 @@
           <td class="display-3 font-weight-black">{{ (selectionRef.answerRefs) ? selectionRef.answerRefs.length : 0 }}</td>
         </tr>
       </tbody>
-    </table>
+    </v-table>
   </v-container>
 </template>
 

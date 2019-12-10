@@ -3,7 +3,6 @@
       <div v-if="wasAnswered">
         <p class='font-weight-black'>{{ question.text }}</p>について<br />
         ご回答ありがとうございました。
-        {{questionId}}
         <nuxt-link :to="{ name: 'analytics-id', params: { id: questionId } }">集計を見る</nuxt-link>
       </div>
       <div class='display-1' v-else-if="question">
