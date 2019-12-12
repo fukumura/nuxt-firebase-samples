@@ -1,8 +1,8 @@
 <template>
-  <v-container fluid>
-    <p class='justify-center display-1 font-weight-black'>{{ question.text }}</v-p>
+  <v-container fluid class='text-center'>
+    <p class='justify-center display-1 font-weight-black'>{{ question.text }}</p>
     <hr class="separator">
-    <table class="table">
+    <v-table class="center">
       <thead>
         <tr>
           <th>回答</th>
@@ -15,7 +15,7 @@
           <td class="display-3 font-weight-black">{{ (selectionRef.answerRefs) ? selectionRef.answerRefs.length : 0 }}</td>
         </tr>
       </tbody>
-    </table>
+    </v-table>
   </v-container>
 </template>
 
@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       questionId: this.$route.params.id,
-      question: this.getQuestion(),
+      question: this.getQuestionResult(),
       selections: [],
     }
   },
@@ -35,29 +35,13 @@ export default {
     ...mapGetters(['user'])
   },
   created(){
-    this.getQuestion()
+    this.getQuestionResult({
+      questionId: this.$route.params.id,
+      uid: this.$store.state.user.uid 
+    })
   },
   methods: {
-    async getQuestion() {
-      const question = await db.collection('questions')
-                               .doc(this.$route.params.id)
-                               .get()
-      const selections = []
-      for (const selection of question.data().selectionRefs) {
-        const s = await db.collection('selections')
-                          .doc(selection.id)
-                          .get()
-        selections.push({
-          id: s.data().id,
-          text: s.data().text,
-          answerRefs: s.data().answerRefs
-        })
-      }
-      this.question = question.data()
-      this.selections = selections
-    },
-
-    ...mapActions([])
+    ...mapActions(['getQuestionResult'])
   },
 }
 </script>
