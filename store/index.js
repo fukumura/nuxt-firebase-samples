@@ -81,6 +81,32 @@ export const actions = {
                            .get()
     return (answer && answer.size > 0) ? answer.size : 0
   },
+  async getQuestionResult({ commit }, payload) {
+    console.log('start getQuestionResult')
+    console.log(payload.questionId)
+    console.log(payload.uid)
+    const question = await db.collection('questions')
+                             .doc(this.payload.questionId)
+                             .get()
+    const selections = []
+    for (const selection of question.data().selectionRefs) {
+      const s = await db.collection('selections')
+                        .doc(selection.id)
+                        .get()
+      selections.push({
+        id: s.data().id,
+        text: s.data().text,
+        answerRefs: s.data().answerRefs
+      })
+    }
+    this.question = question.data()
+    this.selections = selections
+    const questionResult = await db.collection('answers')
+                           .where('uid','==',payload.uid)
+                           .where('questionId','==',payload.questionId)
+                           .get()
+    return questionResult
+  },
   async setUser({ commit }, payload) {
 
     const user = {
