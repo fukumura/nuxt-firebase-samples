@@ -105,10 +105,15 @@ export default {
           title: 'アンケート追加',
           to: '/admin'
         },
-       {
+        {
           icon: 'mdi-chart-bubble',
           title: 'アンケート管理',
           to: '/mquestions'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'チャート',
+          to: '/chart'
         },
         {
           icon: 'mdi-chart-bubble',
