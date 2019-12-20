@@ -108,7 +108,6 @@ export const actions = {
     return questionResult
   },
   async setUser({ commit }, payload) {
-
     const user = {
       uid: payload.uid,
       email: payload.email,
