@@ -112,11 +112,6 @@ export default {
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'チャート',
-          to: '/chart'
-        },
-        {
-          icon: 'mdi-chart-bubble',
           title: 'myアカウント',
           to: '/inspire'
         },

@@ -42,7 +42,7 @@ export default {
     },
     ...mapGetters(['user'])
   },
-  created(){
+  created: function(){
   },
   mounted: function() {
   },

@@ -56,7 +56,7 @@ export default {
     Loginusers
   },
   computed: {
-    ...mapGetters(['samples', 'activeQuestions','user'])
+    ...mapGetters(['activeQuestions','user'])
   },
   created(){
     this.bindActiveQuestions()
