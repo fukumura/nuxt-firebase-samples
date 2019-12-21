@@ -26,23 +26,26 @@ export const mutations = {
 }
 
 export const actions = {
-  bindQuestions: firestoreAction(({ bindFirestoreRef }, payload) => {
+  bindChartData: firestoreAction(({ bindFirestoreRef }, payload) => {
     if (payload && payload.questionId) {
       return bindFirestoreRef(
         'questions',
         db
           .collection('questions')
-          .docs(payload.questionId)
+          .where("id",'==',payload.questionId)
       )
     }
     else {
-      return bindFirestoreRef(
-        'questions',
-        db
-          .collection('questions')
-          .orderBy("createdAt", "desc")
-      )
+      console.log('questionId is null')
     }
+  }),
+  bindQuestions: firestoreAction(({ bindFirestoreRef }, payload) => {
+    return bindFirestoreRef(
+      'questions',
+      db
+        .collection('questions')
+        .orderBy("createdAt", "desc")
+    )
   }),
   bindActiveQuestions: firestoreAction(({ bindFirestoreRef }, payload) => {
     return bindFirestoreRef(
@@ -71,7 +74,6 @@ export const actions = {
                   .get()
       labels.push(s.data().text)
     }
-    console.log(labels)
     return labels
   },
   async alreadyAnswered({ commit }, payload) {
@@ -83,8 +85,6 @@ export const actions = {
   },
   async getQuestionResult({ commit }, payload) {
     console.log('start getQuestionResult')
-    console.log(payload.questionId)
-    console.log(payload.uid)
     const question = await db.collection('questions')
                              .doc(this.payload.questionId)
                              .get()
@@ -124,20 +124,6 @@ export const actions = {
   unsetUser({ commit }) {
     commit('setUser', null)
   },
-  // TODO: 他の関数からの呼び出し方がわからない
-  // setSelection(context, payload) {
-  //   const selectionRef = db.collection('selections').add({
-  //     text: payload.text,
-  //     answerRefs: [],
-  //     createdAt: firebase.firestore.FieldValue.serverTimestamp()
-  //   }).then(function() {
-  //     console.log("Document successfully written![selections]")
-  //   })
-  //   .catch(function(error) {
-  //     console.error("Error writing document: ", error)
-  //   })
-  //   return selectionRef
-  // },
   async setQuestion(context, payload) {
     const selectionRefs = []
     for (const selectionText of payload.selectionNamesRef) {
@@ -166,6 +152,7 @@ export const actions = {
     })
   },
   async setAnswer(context, payload) {
+    console.log(payload)
     const answer = await db.collection('answers')
                            .where('uid','==',payload.uid)
                            .where('questionId','==',payload.questionId)
@@ -199,6 +186,9 @@ export const actions = {
 }
 
 export const getters = {
+  chartData() {
+     return state.chartData
+  },
   chartLabels(state) {
     return state.chartLabels
   },
