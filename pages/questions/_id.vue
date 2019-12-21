@@ -69,6 +69,7 @@ export default {
           easing: 'easeInOutCubic',
         },
      },
+     loaded: false,
      wasAnswered: null
     }
   },
@@ -87,8 +88,17 @@ export default {
     ...mapGetters(['questions','user'])
   },
   created: function() {
+    this.bindChartData({
+      questionId: this.questionId
+    })
   },
-  mounted: function() {
+  async mounted () {
+    this.loaded = false
+    console.log(this.questionId)
+    this.chartData = await this.bindChartData({
+      questionId: this.questionId
+    })
+    this.loaded = true
     this.getAnswered()
   },
   methods: {
@@ -101,12 +111,10 @@ export default {
       this.wasAnswered = status
     },
     answer (event, selectionId) {
-      const userId = this.$store.state.user.uid
-      const questionId = this.$route.params.id
       this.wasAnswered = true;
       this.setAnswer({
-        uid: userId,
-        questionId: questionId,
+        uid: this.$store.state.user.uid,
+        questionId: this.questionId,
         selectionId: selectionId
       })
     },
@@ -122,7 +130,7 @@ export default {
                           .doc(selection.id)
                           .get()
         selections.push({
-          id: s.data().id,
+          id: selection.id,
           text: s.data().text,
           answerRefs: s.data().answerRefs
         })
@@ -141,7 +149,7 @@ export default {
         colors.green.lighten1,
       ]
     },
-    ...mapActions(['setAnswer','alreadyAnswered'])
+    ...mapActions(['setAnswer','alreadyAnswered','bindChartData'])
   },
 }
 </script>

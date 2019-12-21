@@ -24,7 +24,7 @@
              class="ra-select"
              v-for="selection in question.selectionRefs"
              :key="selection.id"
-             @click="answer($event, $store.state.user.uid, selection, question.id)"
+             @click="answer($event, selection, question.id)"
           >{{ selection.text }}
           </v-btn>
           </p>
@@ -90,10 +90,10 @@ export default {
       // let status = await this.alreadyAnswered({uid, questionId})
       // return status
     },
-    answer (event, uid, selection, questionId) {
+    answer (event, selection, questionId) {
       this.isAnswered = true;
       this.setAnswer({
-        uid: uid,
+        uid: this.$store.state.user.uid,
         questionId: questionId,
         selectionId: selection.id
       })

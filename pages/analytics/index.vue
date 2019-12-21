@@ -73,7 +73,7 @@ export default {
     ...mapGetters(['questions','user'])
   },
   created(){
-    this.bindQuestions({questionId: this.$route.params.id})
+    this.bindQuestions()
   },
   mounted: function() {
     this.randomizeData();

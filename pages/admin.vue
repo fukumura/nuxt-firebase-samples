@@ -84,15 +84,12 @@ export default {
     }
   },
   created () {
-    this.bindQuestions(),
-    this.bindSelections(),
-    this.bindActiveQuestions()
   },
   computed: {
     ...mapGetters(['authenticated', 'selections', 'questions'])
   },
   methods: {
-    ...mapActions(['bindSelections','bindQuestions','bindActiveQuestions','setSelection','setQuestion']),
+    ...mapActions(['setSelection','setQuestion']),
     /**
      * 保存処理
      */
