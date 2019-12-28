@@ -96,22 +96,27 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-comment-text',
           title: 'アンケート結果',
           to: '/analytics'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-comment-plus-outline',
           title: 'アンケート追加',
           to: '/admin'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-clipboard-text',
           title: 'アンケート管理',
           to: '/mquestions'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-calendar',
+          title: 'スケジュール',
+          to: '/schedule'
+        },
+        {
+          icon: 'mdi-account',
           title: 'myアカウント',
           to: '/inspire'
         },
