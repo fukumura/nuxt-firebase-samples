@@ -24,7 +24,7 @@
       <section class="section">
         <div class="columns is-mobile">
           <full-calendar />
-        </div>
+      </div>
       </section>
     </v-flex>
   </v-layout>

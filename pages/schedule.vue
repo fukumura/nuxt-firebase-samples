@@ -7,7 +7,12 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapState } from 'vuex'
 export default {
-  name: 'Schedule'
+  name: 'Schedule',
+  computed: {
+    ...mapState(['user','events']),
+    ...mapGetters(['isAuthenticated'])
+  },
 }
 </script>
