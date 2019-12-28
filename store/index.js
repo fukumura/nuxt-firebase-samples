@@ -22,7 +22,11 @@ export const mutations = {
   setUser(state, user) {
     state.user = user
     state.loading = false
+  },
+  setEventCalendar(state, events) {
+    state.user = events
   }
+
 }
 
 export const actions = {
@@ -38,6 +42,14 @@ export const actions = {
     else {
       console.log('questionId is null')
     }
+  }),
+  bindCalendarEvents: firestoreAction(({ bindFirestoreRef }, payload) => {
+    return bindFirestoreRef(
+      'events',
+      db
+        .collection('events')
+        .where('uid', '==', payload.uid)
+    )
   }),
   bindQuestions: firestoreAction(({ bindFirestoreRef }, payload) => {
     return bindFirestoreRef(
@@ -151,6 +163,22 @@ export const actions = {
       console.error("Error writing document: ", error)
     })
   },
+  async setEventCalendar(context, payload) {
+    console.log(payload)
+    await db.collection('events').add({
+      uid: payload.uid,
+      title: payload.title,
+      start: payload.start,
+      end: payload.end,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(function() {
+      console.log("Document successfully written![events]")
+    })
+    .catch(function(error) {
+      console.log('error----')
+      console.error("Error writing document: ", error)
+    })
+  },
   async setAnswer(context, payload) {
     console.log(payload)
     const answer = await db.collection('answers')
@@ -192,11 +220,14 @@ export const getters = {
   chartLabels(state) {
     return state.chartLabels
   },
-  questions(state) {
-    return state.questions
+  events(state) {
+    return state.events
   },
   selections(state) {
     return state.selections
+  },
+  questions(state) {
+    return state.questions
   },
   activeQuestions(state) {
     return state.activeQuestions

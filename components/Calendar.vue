@@ -17,6 +17,7 @@
 </style>
 
 <script>
+import { mapGetters, mapActions, mapState } from 'vuex'
 import FullCalendar from '@fullcalendar/vue'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -41,19 +42,44 @@ export default {
         timeGridPlugin,
         interactionPlugin
       ],
-      calendarEvents:  []
+      calendarEvents: this.getCalendarEvents
     }
   },
+  computed: {
+    ...mapState(['user','events'])
+  },
+  created: function() {
+  },
   methods: {
-    setDateClick (arg) {
-      if (confirm('スケジュールを' + arg.dateStr + 'に追加しますか ?')) {
-        this.calendarEvents.push({
-          title: '新規スケジュール',
-          start: arg.date,
-          allDay: arg.allDay
+    async getCalendarEvents() {
+      const _calendarEvents = await this.bindCalendarEvents({
+        uid: this.$store.state.user.uid
+      })
+      const recordedCalendarEvents = []
+      for (const event of _calendarEvents) {
+        console.log(event.title)
+        recordedCalendarEvents.push({
+          title: event.title,
+          start: event.start.toDate(),
+          end: event.end.toDate()
         })
       }
-    }
+      console.log(recordedCalendarEvents)
+      // this.calendarEvents.push(calendarEvents)
+      return recordedCalendarEvents
+    },
+    setDateClick (arg) {
+      const title = window.prompt("タイトルを入力してください", "")
+      if (title) {
+        this.setEventCalendar({
+          uid: this.$store.state.user.uid,
+          title: title,
+          start: arg.date,
+          end: arg.date,
+        })
+      }
+    },
+    ...mapActions(['bindCalendarEvents','setEventCalendar'])
   }
 }
 </script>
