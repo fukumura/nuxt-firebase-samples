@@ -41,6 +41,10 @@ export default {
     {
       src: '@/plugins/vue-chartjs',
       ssr: false,
+    },
+    {
+      src: '~/plugins/vue-full-calendar',
+      ssr: false,
     }
   ],
   /*
