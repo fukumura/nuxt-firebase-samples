@@ -57,15 +57,13 @@ export default {
       })
       const recordedCalendarEvents = []
       for (const event of _calendarEvents) {
-        console.log(event.title)
         recordedCalendarEvents.push({
           title: event.title,
           start: event.start.toDate(),
-          end: event.end.toDate()
+          end: event.end.toDate(),
+          textColor: 'white'
         })
       }
-      console.log(recordedCalendarEvents)
-      // this.calendarEvents.push(calendarEvents)
       return recordedCalendarEvents
     },
     setDateClick (arg) {

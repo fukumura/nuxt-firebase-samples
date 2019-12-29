@@ -19,13 +19,6 @@
         Please wait for question.
       </div>
 
-      <hr class="separator">
-
-      <section class="section">
-        <div class="columns is-mobile">
-          <full-calendar />
-      </div>
-      </section>
     </v-flex>
   </v-layout>
 </template>
