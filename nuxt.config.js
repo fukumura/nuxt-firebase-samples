@@ -67,14 +67,19 @@ export default {
         component: 'pages/index.vue'
       },
       {
-      name: 'questions-id',
-      path: '/questions/:id?',
-      component: 'pages/questions/_id.vue'
+        name: 'schedule',
+        path: '/schedule',
+        component: 'pages/schedule.vue'
       },
       {
-      name: 'analytics-id',
-      path: '/analytics/:id?',
-      component: 'pages/analytics/_id.vue'
+        name: 'questions-id',
+        path: '/questions/:id?',
+        component: 'pages/questions/_id.vue'
+      },
+      {
+        name: 'analytics-id',
+        path: '/analytics/:id?',
+        component: 'pages/analytics/_id.vue'
       },
     ],
     middleware: ['auth']
