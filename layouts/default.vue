@@ -96,6 +96,11 @@ export default {
           to: '/'
         },
         {
+          icon: 'mdi-chat ',
+          title: 'Chat  ',
+          to: '/chat'
+        },
+        {
           icon: 'mdi-comment-text',
           title: 'アンケート結果',
           to: '/analytics'
@@ -124,7 +129,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'リアルタイムアンケート'
+      title: 'Nuxt練習場'
     }
   }
 }
